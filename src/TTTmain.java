@@ -18,7 +18,7 @@ import java.util.*;
 import srcEntry.Player;
 import srcEntry.EntryGUI;
 import srcEntry.EntryNAMES;
-import srcGUI.SwGUI;
+import srcGUI.SwGUI; 
 
 public class TTTmain extends Application {
 
@@ -37,10 +37,10 @@ public class TTTmain extends Application {
 	}
 	// TODO Auto-generated method stub
 //	TODO random player starting order option
-	// TESTING GITHUB PULL?MERGE?!!?!?!
-	
-	// 1234 TEST TEST TEST
-	// 5678 TEST TEST TEST
+	// master vs citywork
+	// en nog een keer....
+	// GVD!!!!!!!!!!!!!!!!!
+	// wtf ben ik mee bezig
 	
 	public void start(Stage myStage) throws Exception {
 
@@ -403,7 +403,7 @@ public class TTTmain extends Application {
 						screenTime.setFont(Font.font("Arial", FontWeight.BOLD, 200));
 					
 					screenName.setText(db[turnOfPlayer].name);	
-					Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);	
+				//	Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);	
 						
 					// ****** GAME INTERFACE *****
 					FlowPane gameFlow = new FlowPane();
