@@ -39,6 +39,9 @@ public class TTTmain extends Application {
 //	TODO random player starting order option
 	// TESTING GITHUB PULL?MERGE?!!?!?!
 	
+	// 1234 TEST TEST TEST
+	// 5678 TEST TEST TEST
+	
 	public void start(Stage myStage) throws Exception {
 
 	//	Player[] db;
