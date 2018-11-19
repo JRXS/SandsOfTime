@@ -29,6 +29,7 @@ public class TTTmain extends Application {
 	public int turnOfModulus=0;
 	srcEntry.EntryGUI startScreen = new srcEntry.EntryGUI();
 	public Player[] db = new Player[3];
+	public int DWprotection = 0;
 	//MAT!! EntryNAMES en = new EntryNAMES();
 	
 	public static void main(String[] args) {
@@ -128,7 +129,7 @@ public class TTTmain extends Application {
 		borderE.setBottom(addBottomEntry());
 		
 		// Scene myScene = new Scene(startScreen.entryBorder(), 800, 400);
-		Scene myScene = new Scene(borderE, 1200, 800);
+		Scene myScene = new Scene(borderE, 800, 600);
 		
 		myStage.setScene(myScene);
 		myStage.show();
@@ -181,8 +182,8 @@ public class TTTmain extends Application {
 		 
 		  
 	 
-		 Text confirm = new Text("confirm this shit   " );
-		 confirm.setFont(Font.font("Arial", FontWeight.BOLD, 14));	
+		// Text confirm = new Text("confirm this shit   " );
+		// confirm.setFont(Font.font("Arial", FontWeight.BOLD, 14));	
 		 
 		
 		 
@@ -204,7 +205,7 @@ public class TTTmain extends Application {
 					
 					
 				//	int nrOfPlayers = spinnershit.getSpinnervalue();
-					confirm.setText("confirm this shit extra  "+ nrOfPlayers);
+					
 					System.out.println("dit is nrOfPlayers en dus spinnervalue getter: " + nrOfPlayers);
 				//	System.out.println("dit is de spinnervalue als ie em ziet" + spinnervalue);
 				
@@ -352,6 +353,11 @@ public class TTTmain extends Application {
 					
 					FlowPane sideFlow = new FlowPane(); 
 					
+					for (int i = 0; i < nrOfPlayers; i++) {
+					System.out.println(db[i].name + " has got a quit status of " + db[i].quit);
+					
+					}
+					
 					new Thread() {
 						public void run() { 
 							for (int i = 0; i < 20000; i++) {
@@ -364,21 +370,54 @@ public class TTTmain extends Application {
 									
 									sideFlow.getChildren().clear();
 									
+									
+									
+									
 									for (int i = 0; i < nrOfPlayers; i++) {
+											int k = i;
 										
-										Text sideText = new Text(db[i].name);
-										sideText.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-										Text sideTime = new Text(""+db[i].sw.getTime()/1000);
-										sideTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-										
-										HBox sideBox = new HBox(sideText, sideTime);
-										sideBox.setPadding(new Insets(15, 12, 15, 12));
-										sideBox.setSpacing(40);
-										sideFlow.getChildren().addAll(sideBox);
+											
+											Text sideText = new Text(db[i].name);
+											sideText.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+											
+											Text sideTime = new Text();
+											sideTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
+											
+											
+											if (db[i].quit == false) {
+											sideTime.setText(""+db[i].sw.getTime()/1000);
+											
+											}
+											else if (db[i].quit == true){
+												sideTime.setText("RIP");
+												}
+											else {
+												System.out.println("We got a quit = false/true problem in de sideflow");
+											}
+											
+											
+											Button sideButton = new Button("Eject");
+											sideButton.setPrefSize(200, 30);
+											 
+											sideButton.setOnAction(new EventHandler<ActionEvent>() {
+													@Override
+													public void handle(ActionEvent event) {
+														
+														db[k].quit = true;
+														
+													}  
+												}); 
+											HBox sideBox = new HBox(sideText, sideTime, sideButton);
+											sideBox.setPadding(new Insets(15, 12, 15, 12));
+											sideBox.setSpacing(40);
+											sideFlow.getChildren().addAll(sideBox);
+											
+										}
+									
 										}
 																
 									
-					  			}
+					  			
 							});
 						}	
 						}
@@ -396,13 +435,33 @@ public class TTTmain extends Application {
 					
 					borderE.setTop(sideFlow);
 					
+					Text screenName = new Text(db[turnOfPlayer].name);
+					screenName.setFont(Font.font("Arial", FontWeight.BOLD, 100));
+					Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);
+					screenTime.setFont(Font.font("Arial", FontWeight.BOLD, 100));
 					
-					 Text screenName = new Text(db[turnOfPlayer].name);
-						screenName.setFont(Font.font("Arial", FontWeight.BOLD, 200));
-						Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);
-						screenTime.setFont(Font.font("Arial", FontWeight.BOLD, 200));
+					new Thread() {
+						public void run() { 
+							for (int i = 0; i < 20000; i++) {
+								try {
+									Thread.sleep(1000);
+									} catch (InterruptedException ex)
+										{ex.printStackTrace();}
+								Platform.runLater(new Runnable() 
+								{public void run() { 
+								
+									screenName.setText(db[turnOfPlayer].name);	
+									screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);
+								
+					  			}
+							});
+						}	
+						}
+						}.start();
 					
-					screenName.setText(db[turnOfPlayer].name);	
+					 
+					
+				//	screenName.setText(db[turnOfPlayer].name);	
 				//	Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);	
 						
 					// ****** GAME INTERFACE *****
@@ -421,7 +480,7 @@ public class TTTmain extends Application {
 					gameFlow.getChildren().clear();
 					 
 					// start sw p1
-					// show name p1
+					// show name p1 
 					// show sw p1
 					// make button end turn p1
 					// make action  - end sw p1
@@ -502,23 +561,64 @@ public class TTTmain extends Application {
 								}
 								else {System.out.println("we got a problem: der knop cannot suspend");}
 								// remove images // or redundant set zero text
-								screenTime.setText("");
-								screenName.setText("");
+								// screenTime.setText("");
+								// screenName.setText("");
 								
 								
 								
 								
 								
 								// modulus +1
-								turnOfModulus++;
+								// turnOfModulus++;
 								// start SW
-
-								if ((turnOfModulus+1) <= nrOfPlayers ) {
-									turnOfPlayer = turnOfModulus;
+								
+								
+								// while (db[turnOfPlayer].quit == true) {
+								//	turnOfModulus++;
+								//	}
+								
+								do { 
+									turnOfModulus++; 
+									DWprotection++;	
+									if ((turnOfModulus+1) <= nrOfPlayers ) 
+									{turnOfPlayer = turnOfModulus;}
+									else {turnOfPlayer = (turnOfModulus % nrOfPlayers);}
+								}
+								while (db[turnOfPlayer].quit == true && DWprotection <= 20);	
+								
+								DWprotection = 0; //reset to zero again for next dowhile loop.
+								
+								
+								
+								
+								
+					//			if ((turnOfModulus+1) <= nrOfPlayers ) {
+					//				turnOfPlayer = turnOfModulus;
+					//			}
+					//			else {
+					//				turnOfPlayer = (turnOfModulus % nrOfPlayers);
+					//			}
+								
+								
+								
+								
+								/* if (db[turnOfPlayer].quit == true) {
+									System.out.println("This looser quit, let's skip him!");
+									turnOfModulus++;
+									
+									
+									if ((turnOfModulus+1) <= nrOfPlayers ) {
+										turnOfPlayer = turnOfModulus;
+									}
+									else {
+										turnOfPlayer = (turnOfModulus % nrOfPlayers);
+									}   
+									
 								}
 								else {
-									turnOfPlayer = (turnOfModulus % nrOfPlayers);
-								}
+									System.out.println("Nothing to see here, move along, noboddy quit");
+								} */
+								
 								
 								// CATCH SUSPEND EN AL DIE DINGEN MEER!
 								if (db[turnOfPlayer].active == false) {
@@ -533,23 +633,17 @@ public class TTTmain extends Application {
 									System.out.println("we got a start/resume problem");
 									
 								}	
-										
-										
+								
+								
+								
+								screenName.setText(db[turnOfPlayer].name);	// Double commando zodat het veld gevuld wordt: anders gebeurd dit pas door de thread na 1 seconde en dan heb je effe een leeg veld.		
+								screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);
 								// add images
-																
-								
-								
-								
+							
 								// db[0].name 	db[0].sw.getTime()
 					
-								
-								
-							//	gameFlow.getChildren().addAll(db[turnOfPlayer].naamtekst, db[turnOfPlayer].displaytimer);
-																
-							
-								
-								
-								
+								//gameFlow.getChildren().addAll(db[turnOfPlayer].naamtekst, db[turnOfPlayer].displaytimer);
+									
 							}}); 
 					
 					
@@ -569,7 +663,7 @@ public class TTTmain extends Application {
 			});
 		   
 		 
-		 vbox.getChildren().addAll(bottomTitle, arrayprinter, lockin, confirm, nextScreen, enternames);  //arraystarter,
+		 vbox.getChildren().addAll(bottomTitle, arrayprinter, lockin, enternames, nextScreen);  //arraystarter,
 	//	 borderE.setRight(entryNames());
 		 return vbox;
 		
