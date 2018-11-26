@@ -12,7 +12,7 @@ public class Player {
 	public long timesplit;
 	public long timeleft;
 //	public StopWatch sw; // = new StopWatch();
-	public StopWatch sw = new StopWatch();
+	public StopWatch sw = new StopWatch(); 
 	public Text naamtekst = new Text(""+name);
 	public Text displaytimer = new Text(""+sw.getTime());
 	public boolean active = false;

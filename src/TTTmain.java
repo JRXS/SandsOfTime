@@ -37,7 +37,7 @@ public class TTTmain extends Application {
 		launch(args);
 	}
 	// TODO Auto-generated method stub
-//	TODO random player starting order option
+	//	TODO random player starting order option
 	// master vs citywork
 	// en nog een keer....
 	// GVD!!!!!!!!!!!!!!!!!
@@ -126,7 +126,7 @@ public class TTTmain extends Application {
  
 		
 		borderE.setLeft(startScreen.entryBorder());
-		borderE.setBottom(addBottomEntry());
+		borderE.setBottom(addBottomEntryTestingConsole());
 		
 		// Scene myScene = new Scene(startScreen.entryBorder(), 800, 400);
 		Scene myScene = new Scene(borderE, 800, 600);
@@ -148,14 +148,15 @@ public class TTTmain extends Application {
 	
 	
 	
-	public VBox addBottomEntry() {
-		 VBox vbox = new VBox();
-		 vbox.setPadding(new Insets(15, 12, 15, 12));
-		 vbox.setSpacing(10);
-		 vbox.setStyle("-fx-background-color: #336699;");
+	public HBox addBottomEntryTestingConsole() {
+		 HBox hboxTestingConsole = new HBox(); 	
+		 VBox vbox1 = new VBox();
+		 vbox1.setPadding(new Insets(15, 12, 15, 12));
+		 vbox1.setSpacing(10);
+		 vbox1.setStyle("-fx-background-color: #336699;");
 		 
 		 Text bottomTitle = new Text("TESTIN CONSOLE");
-		 bottomTitle.setFont(Font.font("Arial", FontWeight.BOLD, 30));	
+		 bottomTitle.setFont(Font.font("Arial", FontWeight.BOLD, 20));	
 		 
 		 Button arrayprinter = new Button("Print Array");
 		 arrayprinter.setPrefSize(200, 30);
@@ -440,7 +441,8 @@ public class TTTmain extends Application {
 					Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);
 					screenTime.setFont(Font.font("Arial", FontWeight.BOLD, 100));
 					
-					new Thread() {
+			/*		
+			  new Thread() {
 						public void run() { 
 							for (int i = 0; i < 20000; i++) {
 								try {
@@ -450,14 +452,54 @@ public class TTTmain extends Application {
 								Platform.runLater(new Runnable() 
 								{public void run() { 
 								
-									screenName.setText(db[turnOfPlayer].name);	
+									
+							//	if (db[turnOfPlayer].name != null) {
+							//		screenName.setText(db[turnOfPlayer].name); }
+							//	if (db[turnOfPlayer].sw != null) {
+							//		screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);}
+								try {
+									screenName.setText(db[turnOfPlayer].name);
 									screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);
+								}
+								catch (NullPointerException e) { 
+								//	System.out.println("Null pointer exception of topscreen refresh thread");
+									}
 								
-					  			}
+								}
 							});
 						}	
 						}
 						}.start();
+					*/	
+						Thread Refresh = new Thread() {
+							public void run() { 
+								for (int i = 0; i < 20000; i++) {
+									try {
+										Thread.sleep(1000);
+										} catch (InterruptedException ex)
+											{ex.printStackTrace();}
+									Platform.runLater(new Runnable() 
+									{public void run() { 
+									
+										
+								//	if (db[turnOfPlayer].name != null) {
+								//		screenName.setText(db[turnOfPlayer].name); }
+								//	if (db[turnOfPlayer].sw != null) {
+								//		screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);}
+									try {
+										screenName.setText(db[turnOfPlayer].name);
+										screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);
+									}
+									catch (NullPointerException e) { 
+									//	System.out.println("Null pointer exception of topscreen refresh thread");
+										}
+									
+									}
+								});
+							}	
+							}
+							};
+						Refresh.start();
 					
 					 
 					
@@ -663,9 +705,65 @@ public class TTTmain extends Application {
 			});
 		   
 		 
-		 vbox.getChildren().addAll(bottomTitle, arrayprinter, lockin, enternames, nextScreen);  //arraystarter,
-	//	 borderE.setRight(entryNames());
-		 return vbox;
+		 vbox1.getChildren().addAll(bottomTitle, arrayprinter, lockin, enternames, nextScreen);  //arraystarter,
+	
+		 VBox vbox2 = new VBox();
+		// knop reset
+		// knop final statistics 
+		 vbox2.setPadding(new Insets(15, 12, 15, 12));
+		 vbox2.setSpacing(10);
+		 vbox2.setStyle("-fx-background-color: #336699;");
+		 
+		 Button resetButton = new Button("Reset");
+		 resetButton.setPrefSize(200, 30);
+			 
+		 resetButton.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						
+						System.out.println("resetting!");
+						
+						//stopping stopwatch
+						if (db[turnOfPlayer].active == true && db[turnOfPlayer].suspended == false) {
+							db[turnOfPlayer].sw.stop(); }
+						// stopping threads?
+						
+						
+						// resetting imperative value objects
+						turnOfPlayer=0;
+						turnOfModulus=0;
+						DWprotection =0;
+						nrOfPlayers = 0;
+						nrOfQuitters = 0;
+						
+						
+						
+						// resetting screen
+						
+						Arrays.fill(db, null); 
+						borderE.setLeft(null);
+						borderE.setTop(null);
+						borderE.setRight(null);
+						borderE.setCenter(null);
+						borderE.setLeft(startScreen.entryBorder());
+						
+					}  
+				}); 
+		 vbox2.getChildren().addAll(resetButton);  
+			
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 //	 borderE.setRight(entryNames());
+		 hboxTestingConsole.getChildren().addAll(vbox1, vbox2);
+		 
+		 
+		 return hboxTestingConsole;
 		
 		}
 	
