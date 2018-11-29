@@ -19,6 +19,7 @@ import srcEntry.Player;
 import srcEntry.EntryGUI;
 import srcEntry.EntryNAMES;
 import srcGUI.SwGUI; 
+import srcGUI.SwTIME;
 
 public class TTTmain extends Application {
 
@@ -28,11 +29,13 @@ public class TTTmain extends Application {
 	public int turnOfPlayer=0;
 	public int turnOfModulus=0;
 	srcEntry.EntryGUI startScreen = new srcEntry.EntryGUI();
+	srcGUI.SwTIME timescreen = new srcGUI.SwTIME(5,this);
 	public Player[] db = new Player[3];
 	public int DWprotection = 0;
 	//MAT!! EntryNAMES en = new EntryNAMES();
 	
 	public static void main(String[] args) {
+		System.out.println(new TTTmain().timescreen.nrOfPlayers);
 
 		launch(args);
 	}
@@ -143,11 +146,8 @@ public class TTTmain extends Application {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-	
 	}
-	
-	
-	
+		
 	public HBox addBottomEntryTestingConsole() {
 		 HBox hboxTestingConsole = new HBox(); 	
 		 VBox vbox1 = new VBox();
@@ -350,7 +350,7 @@ public class TTTmain extends Application {
 					borderE.setCenter(null);
 					borderE.setRight(null);
 					
-					 // **** SIDE BAR TRACKING TIME ETC ****
+// ************************ TOP SIDE BAR TRACKING TIME ETC *****************
 					
 					FlowPane sideFlow = new FlowPane(); 
 					
@@ -370,9 +370,6 @@ public class TTTmain extends Application {
 								{public void run() { 
 									
 									sideFlow.getChildren().clear();
-									
-									
-									
 									
 									for (int i = 0; i < nrOfPlayers; i++) {
 											int k = i;
@@ -412,29 +409,18 @@ public class TTTmain extends Application {
 											sideBox.setPadding(new Insets(15, 12, 15, 12));
 											sideBox.setSpacing(40);
 											sideFlow.getChildren().addAll(sideBox);
-											
 										}
-									
 										}
-																
-									
-					  			
-							});
-						}	
-						}
-						}.start();
+								});
+						}}}.start();
 					
-					
-					
-					
-					//Text sideText = new Text("Total");
-					//sideText.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-					//Text sideTime = new Text("kut met peren");
-					//sideTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
-					//HBox sideBox = new HBox(sideText, sideTime);
-					//sideFlow.getChildren().addAll(sideBox);
-					
+					borderE.setLeft(timescreen.timetrack());	
 					borderE.setTop(sideFlow);
+					
+					
+					
+					
+// ************************** GAME INTERFACE *************************************	
 					
 					Text screenName = new Text(db[turnOfPlayer].name);
 					screenName.setFont(Font.font("Arial", FontWeight.BOLD, 100));
@@ -481,11 +467,6 @@ public class TTTmain extends Application {
 									Platform.runLater(new Runnable() 
 									{public void run() { 
 									
-										
-								//	if (db[turnOfPlayer].name != null) {
-								//		screenName.setText(db[turnOfPlayer].name); }
-								//	if (db[turnOfPlayer].sw != null) {
-								//		screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);}
 									try {
 										screenName.setText(db[turnOfPlayer].name);
 										screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);
@@ -493,20 +474,11 @@ public class TTTmain extends Application {
 									catch (NullPointerException e) { 
 									//	System.out.println("Null pointer exception of topscreen refresh thread");
 										}
-									
 									}
 								});
-							}	
-							}
-							};
+							}}};
 						Refresh.start();
-					
-					 
-					
-				//	screenName.setText(db[turnOfPlayer].name);	
-				//	Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);	
-						
-					// ****** GAME INTERFACE *****
+				
 					FlowPane gameFlow = new FlowPane();
 					VBox gameBox = new VBox();
 					
@@ -517,51 +489,9 @@ public class TTTmain extends Application {
 					butstarttheclock.setOnAction(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent event) {
-							
-				//		WTF ALLES KOMT HIERIN!
+						
 					gameFlow.getChildren().clear();
 					 
-					// start sw p1
-					// show name p1 
-					// show sw p1
-					// make button end turn p1
-					// make action  - end sw p1
-					//				- start/show all for p2
-					//				- make button end turn p2
-					
-					// alle shit +1 tot laatste player
-					
-					// start cycle all over
-					
-				// ***********	for (int i=0; i < nrOfPlayers; i++){} **************
-						// ******** I *******
-						// iedere speler krijg een - name display
-						// 						   - timer display
-						//						   - knop end turn
-						// aanmaken? of gewoon in de Player.java stoppen?
-						
-						
-						
-						// **** II  *********************
-						//
-						// de knop blijf hetzelfde, en krijgt een +1 na iedere druk
-						// en dan met een soort "overflow" berekenen wiens beurd het is.
-						// MODULUS
-						// maar wat als je er dan een speler halverwege wil uitgooien?
-						// --> dan gebruik je een nieuw int in de berekening: verlaten spelers.
-						// aantal spelers = spelers - verlaters.
-						// en die modulus moet mee veranderen.
-						
-						
-						// **** !!!!!!!!!!!!!!!!!!!!!!!!!******
-						// dus...
-						// iedere speler krijgt een  	- name display
-						// 								- timer display
-						// los komt de grote knop der knoppen.
-						// dus kan je ook een display in de player class gooien?
-						// een method?
-				
-					
 					VBox timeturn = new VBox();
 					timeturn.getChildren().addAll(screenName, screenTime);
 					gameFlow.getChildren().addAll(timeturn);
@@ -569,23 +499,16 @@ public class TTTmain extends Application {
 					db[turnOfPlayer].sw.start();
 					db[turnOfPlayer].active = true;
 					} 
-						  
 					});  
-					
 					
 					gameBox.getChildren().addAll(textwhoisup, texttimer, butstarttheclock);
 					gameFlow.getChildren().addAll(gameBox);
 					
 					borderE.setCenter(gameFlow);
-					 
-					// *** knop der knoppen
 					
 					
-					
-					
-					
+// ****************************** knop der knoppen ***********************************
 					FlowPane derFlow = new FlowPane();
-					
 					HBox derBox = new HBox();
 					
 					Button derKnop = new Button("derKnop");
@@ -688,19 +611,10 @@ public class TTTmain extends Application {
 									
 							}}); 
 					
-					
 					derBox.getChildren().addAll(derKnop);
 					derFlow.getChildren().addAll(derBox);
-					
-					
-					
-					
-					
-					
 					borderE.setRight(derFlow);
-					
-					
-					
+				
 					} 
 			});
 		   
@@ -708,12 +622,11 @@ public class TTTmain extends Application {
 		 vbox1.getChildren().addAll(bottomTitle, arrayprinter, lockin, enternames, nextScreen);  //arraystarter,
 	
 		 VBox vbox2 = new VBox();
-		// knop reset
-		// knop final statistics 
 		 vbox2.setPadding(new Insets(15, 12, 15, 12));
 		 vbox2.setSpacing(10);
 		 vbox2.setStyle("-fx-background-color: #336699;");
 		 
+		// *TestingConsole **************** knop reset **********************
 		 Button resetButton = new Button("Reset");
 		 resetButton.setPrefSize(200, 30);
 			 
@@ -726,45 +639,32 @@ public class TTTmain extends Application {
 						//stopping stopwatch
 						if (db[turnOfPlayer].active == true && db[turnOfPlayer].suspended == false) {
 							db[turnOfPlayer].sw.stop(); }
-						// stopping threads?
 						
+						// stopping threads?
+						// Lukt me nog niet. Mathieu timeline gebeuren?
 						
 						// resetting imperative value objects
 						turnOfPlayer=0;
 						turnOfModulus=0;
-						DWprotection =0;
-						nrOfPlayers = 0;
-						nrOfQuitters = 0;
-						
-						
+						DWprotection=0;
+						nrOfPlayers=0;
+						nrOfQuitters=0;
 						
 						// resetting screen
-						
 						Arrays.fill(db, null); 
 						borderE.setLeft(null);
 						borderE.setTop(null);
 						borderE.setRight(null);
 						borderE.setCenter(null);
 						borderE.setLeft(startScreen.entryBorder());
-						
-					}  
+						}  
 				}); 
+		 
+		// ************************************knop final statistics
+		 
 		 vbox2.getChildren().addAll(resetButton);  
-			
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 
-		 //	 borderE.setRight(entryNames());
 		 hboxTestingConsole.getChildren().addAll(vbox1, vbox2);
-		 
-		 
 		 return hboxTestingConsole;
-		
 		}
 	
 	/* public FlowPane entryNames() {
