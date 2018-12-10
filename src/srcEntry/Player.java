@@ -17,6 +17,7 @@ public class Player {
 	public Text displaytimer = new Text(""+sw.getTime());
 	public boolean active = false;
 	public boolean suspended = false;
+	public boolean quit = false;
 	
 }
 
