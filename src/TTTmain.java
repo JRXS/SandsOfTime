@@ -24,14 +24,20 @@ import srcEntry.EntryGUI;
 public class TTTmain extends Application {
 
 	public BorderPane borderE = new BorderPane();
+	srcEntry.EntryGUI startScreen = new srcEntry.EntryGUI();
+	
+	
 	public int nrOfPlayers;
 	public int nrOfQuitters;
 	public int turnOfPlayer=0;
 	public int turnOfModulus=0;
-	srcEntry.EntryGUI startScreen = new srcEntry.EntryGUI();
+	public long aveTime=0;
+	public long totalTime=0;
 	public Player[] db = new Player[3];
 	public int DWprotection = 0;
 	//MAT!! EntryNAMES en = new EntryNAMES();
+	
+	
 	
 	public static void main(String[] args) {
 		
@@ -147,9 +153,6 @@ public class TTTmain extends Application {
 		}
 	}
 
-		
-	
-	
 	
 	public HBox addBottomEntry() {
 		 HBox hboxTestingConsole = new HBox(); 	
@@ -284,7 +287,7 @@ public class TTTmain extends Application {
 						HBox nameLine = new HBox();
 						Text nameText = new Text("enter name of player " +(i+1));
 						nameText.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-						
+				 		
 						TextField enterName = new TextField();
 						enterName.setEditable(true);
 						enterName.setFont(Font.font("Arial", FontWeight.BOLD, 14));
@@ -378,6 +381,18 @@ public class TTTmain extends Application {
 									
 									sideFlow.getChildren().clear();
 									
+									//gemiddelde tijd berekenen
+									aveTime = 0;
+									totalTime = 0;
+									for (int i = 0; i < nrOfPlayers; i++) {
+										totalTime = totalTime + db[i].sw.getTime();
+																		
+									}
+										
+									aveTime = (totalTime / nrOfPlayers);
+									
+									
+									
 									for (int i = 0; i < nrOfPlayers; i++) {
 											int k = i;
 										
@@ -388,6 +403,36 @@ public class TTTmain extends Application {
 											Text sideTime = new Text();
 											sideTime.setFont(Font.font("Arial", FontWeight.BOLD, 28));
 											
+											// RIP or not RIP
+																	
+											if (db[i].quit == true) { // while RIP
+												sideText.setFill(Color.BLACK);
+												sideTime.setFill(Color.BLACK);
+											}
+											
+											else {  // while NOT RIP
+											
+											// TE KORTE TIJDSBESTEK or PRIMA TIJDSBESTEK 1s = 1000	
+											if (db[i].sw.getTime() <= 10000) { // te kort tijdsbestek
+												sideText.setFill(Color.BLUE);
+												sideTime.setFill(Color.BLUE);	
+											}
+											else { // prima tijdsbestek
+											
+											if (db[i].sw.getTime() <= aveTime*0.8) {
+												sideText.setFill(Color.GREEN);
+											sideTime.setFill(Color.GREEN);
+											}
+											else if (db[i].sw.getTime() >= aveTime*1.2) {
+												sideText.setFill(Color.RED);
+											sideTime.setFill(Color.RED);
+											}
+											else {sideText.setFill(Color.BLUE);
+											sideTime.setFill(Color.BLUE);
+											}
+											}
+											}								
+										
 											
 											if (db[i].quit == false) {
 											sideTime.setText(""+db[i].sw.getTime()/1000);
@@ -433,7 +478,7 @@ public class TTTmain extends Application {
 					screenName.setFont(Font.font("Arial", FontWeight.BOLD, 100));
 					Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);
 					screenTime.setFont(Font.font("Arial", FontWeight.BOLD, 100));
-					
+					ImageView SkullTimer = new ImageView();
 			/*		new Thread() {
 						public void run() { 
 							for (int i = 0; i < 20000; i++) {
@@ -465,8 +510,76 @@ public class TTTmain extends Application {
 									{public void run() { 
 									
 									try {
+									//	copy pasta van eerdere time screen
+																	
+										
+										
 										screenName.setText(db[turnOfPlayer].name);
 										screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);
+										
+										if (db[turnOfPlayer].sw.getTime() <= 10000) { // te kort tijdsbestek
+											screenName.setFill(Color.BLUE);
+											screenTime.setFill(Color.BLUE);	
+											SkullTimer.setImage("SkullTimer_12.png");
+										}
+										else { // prima tijdsbestek
+										
+										if (db[turnOfPlayer].sw.getTime() <= aveTime*0.8) {
+											screenName.setFill(Color.GREEN);
+											screenTime.setFill(Color.GREEN);
+											SkullTimer.setImage("SkullTimer_12.png");
+										}
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.2) {
+											screenName.setFill(Color.RED);
+											screenTime.setFill(Color.RED);
+											SkullTimer.setImage("SkullTimer_12.png");
+										}
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.00) {
+										SkullTimer.setImage("SkullTimer_0.png");
+											
+										} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.05) {
+											SkullTimer.setImage("SkullTimer_1.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.10) {
+											SkullTimer.setImage("SkullTimer_2.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.15) {
+											SkullTimer.setImage("SkullTimer_3.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.20) {
+											SkullTimer.setImage("SkullTimer_4.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.25) {
+											SkullTimer.setImage("SkullTimer_5.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.30) {
+											SkullTimer.setImage("SkullTimer_6.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.35) {
+											SkullTimer.setImage("SkullTimer_7.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.40) {
+											SkullTimer.setImage("SkullTimer_8.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.45) {
+											SkullTimer.setImage("SkullTimer_9.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.50) {
+											SkullTimer.setImage("SkullTimer_10.png");
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.55) {
+											SkullTimer.setImage("SkullTimer_11.png");
+											} 
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.60) {
+											db[turnOfPlayer].quit=true;
+											} 
+										
+										else {screenName.setFill(Color.BLUE);
+										screenTime.setFill(Color.BLUE);
+										ImageView SkullTimer = new ImageView("SkullTimer_12.png");
+										}
+										}
 									}
 									catch (NullPointerException e) { 
 									//	System.out.println("Null pointer exception of topscreen refresh thread");
