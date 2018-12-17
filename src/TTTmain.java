@@ -479,6 +479,21 @@ public class TTTmain extends Application {
 					Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);
 					screenTime.setFont(Font.font("Arial", FontWeight.BOLD, 100));
 					ImageView SkullTimer = new ImageView();
+					Image SkullPicture00 = new Image("SkullTimer_0.png");
+					Image SkullPicture01 = new Image("SkullTimer_1.png");
+					Image SkullPicture02 = new Image("SkullTimer_2.png");
+					Image SkullPicture03 = new Image("SkullTimer_3.png");
+					Image SkullPicture04 = new Image("SkullTimer_4.png");
+					Image SkullPicture05 = new Image("SkullTimer_5.png");
+					Image SkullPicture06 = new Image("SkullTimer_6.png");
+					Image SkullPicture07 = new Image("SkullTimer_7.png");
+					Image SkullPicture08 = new Image("SkullTimer_8.png");
+					Image SkullPicture09 = new Image("SkullTimer_9.png");
+					Image SkullPicture10 = new Image("SkullTimer_10.png");
+					Image SkullPicture11 = new Image("SkullTimer_11.png");
+					Image SkullPicture12 = new Image("SkullTimer_12.png");
+					
+					SkullTimer.setImage(SkullPicture12);
 			/*		new Thread() {
 						public void run() { 
 							for (int i = 0; i < 20000; i++) {
@@ -520,56 +535,56 @@ public class TTTmain extends Application {
 										if (db[turnOfPlayer].sw.getTime() <= 10000) { // te kort tijdsbestek
 											screenName.setFill(Color.BLUE);
 											screenTime.setFill(Color.BLUE);	
-											SkullTimer.setImage("SkullTimer_12.png");
+											SkullTimer.setImage(SkullPicture12);
 										}
 										else { // prima tijdsbestek
 										
 										if (db[turnOfPlayer].sw.getTime() <= aveTime*0.8) {
 											screenName.setFill(Color.GREEN);
 											screenTime.setFill(Color.GREEN);
-											SkullTimer.setImage("SkullTimer_12.png");
+											SkullTimer.setImage(SkullPicture12);
 										}
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.2) {
 											screenName.setFill(Color.RED);
 											screenTime.setFill(Color.RED);
-											SkullTimer.setImage("SkullTimer_12.png");
+											SkullTimer.setImage(SkullPicture12);
 										}
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.00) {
-										SkullTimer.setImage("SkullTimer_0.png");
+											SkullTimer.setImage(SkullPicture00);
 											
 										} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.05) {
-											SkullTimer.setImage("SkullTimer_1.png");
+											SkullTimer.setImage(SkullPicture01);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.10) {
-											SkullTimer.setImage("SkullTimer_2.png");
+											SkullTimer.setImage(SkullPicture02);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.15) {
-											SkullTimer.setImage("SkullTimer_3.png");
+											SkullTimer.setImage(SkullPicture03);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.20) {
-											SkullTimer.setImage("SkullTimer_4.png");
+											SkullTimer.setImage(SkullPicture04);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.25) {
-											SkullTimer.setImage("SkullTimer_5.png");
+											SkullTimer.setImage(SkullPicture05);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.30) {
-											SkullTimer.setImage("SkullTimer_6.png");
+											SkullTimer.setImage(SkullPicture06);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.35) {
-											SkullTimer.setImage("SkullTimer_7.png");
+											SkullTimer.setImage(SkullPicture07);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.40) {
-											SkullTimer.setImage("SkullTimer_8.png");
+											SkullTimer.setImage(SkullPicture08);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.45) {
-											SkullTimer.setImage("SkullTimer_9.png");
+											SkullTimer.setImage(SkullPicture09);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.50) {
-											SkullTimer.setImage("SkullTimer_10.png");
+											SkullTimer.setImage(SkullPicture10);
 											} 	
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.55) {
-											SkullTimer.setImage("SkullTimer_11.png");
+											SkullTimer.setImage(SkullPicture11);
 											} 
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.60) {
 											db[turnOfPlayer].quit=true;
@@ -577,7 +592,7 @@ public class TTTmain extends Application {
 										
 										else {screenName.setFill(Color.BLUE);
 										screenTime.setFill(Color.BLUE);
-										ImageView SkullTimer = new ImageView("SkullTimer_12.png");
+										SkullTimer.setImage(SkullPicture12);
 										}
 										}
 									}
