@@ -388,9 +388,10 @@ public class TTTmain extends Application {
 										totalTime = totalTime + db[i].sw.getTime();
 																		
 									}
-										
+									try {	
 									aveTime = (totalTime / nrOfPlayers);
-									
+									}
+									catch (ArithmeticException ex) {}
 									
 									
 									for (int i = 0; i < nrOfPlayers; i++) {
@@ -414,8 +415,8 @@ public class TTTmain extends Application {
 											
 											// TE KORTE TIJDSBESTEK or PRIMA TIJDSBESTEK 1s = 1000	
 											if (db[i].sw.getTime() <= 10000) { // te kort tijdsbestek
-												sideText.setFill(Color.BLUE);
-												sideTime.setFill(Color.BLUE);	
+												sideText.setFill(Color.PINK);
+												sideTime.setFill(Color.PINK);	
 											}
 											else { // prima tijdsbestek
 											
@@ -479,6 +480,8 @@ public class TTTmain extends Application {
 					Text screenTime = new Text(""+db[turnOfPlayer].sw.getTime()/1000);
 					screenTime.setFont(Font.font("Arial", FontWeight.BOLD, 100));
 					ImageView SkullTimer = new ImageView();
+					SkullTimer.setFitWidth(100);
+					SkullTimer.setFitHeight(100);
 					Image SkullPicture00 = new Image("SkullTimer_0.png");
 					Image SkullPicture01 = new Image("SkullTimer_1.png");
 					Image SkullPicture02 = new Image("SkullTimer_2.png");
@@ -532,9 +535,9 @@ public class TTTmain extends Application {
 										screenName.setText(db[turnOfPlayer].name);
 										screenTime.setText(""+db[turnOfPlayer].sw.getTime()/1000);
 										
-										if (db[turnOfPlayer].sw.getTime() <= 10000) { // te kort tijdsbestek
-											screenName.setFill(Color.BLUE);
-											screenTime.setFill(Color.BLUE);	
+										if (db[turnOfPlayer].sw.getTime() <= 10000 || db[(nrOfPlayers-1)].sw.getTime() <= 10000) { // te kort tijdsbestek
+											screenName.setFill(Color.PINK);
+											screenTime.setFill(Color.PINK);	
 											SkullTimer.setImage(SkullPicture12);
 										}
 										else { // prima tijdsbestek
@@ -544,51 +547,55 @@ public class TTTmain extends Application {
 											screenTime.setFill(Color.GREEN);
 											SkullTimer.setImage(SkullPicture12);
 										}
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.90) {
+											if (nrOfPlayers >= 2) {
+											db[turnOfPlayer].quit=true;}
+											} 
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.85) {
+											SkullTimer.setImage(SkullPicture11);
+											} 
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.80) {
+											SkullTimer.setImage(SkullPicture10);
+											} 
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.75) {
+											SkullTimer.setImage(SkullPicture09);
+											} 
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.70) {
+											SkullTimer.setImage(SkullPicture08);
+											}
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.65) {
+											SkullTimer.setImage(SkullPicture07);
+											} 
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.60) {
+											SkullTimer.setImage(SkullPicture06);
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.55) {
+											SkullTimer.setImage(SkullPicture05);
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.50) {
+											SkullTimer.setImage(SkullPicture04);
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.45) {
+											SkullTimer.setImage(SkullPicture03);
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.40) {
+											SkullTimer.setImage(SkullPicture02);
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.35) {
+											SkullTimer.setImage(SkullPicture01);
+											} 	
+										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.30) {
+											SkullTimer.setImage(SkullPicture00);
+										} 	
+										
 										else if (db[turnOfPlayer].sw.getTime() >= aveTime*1.2) {
 											screenName.setFill(Color.RED);
 											screenTime.setFill(Color.RED);
 											SkullTimer.setImage(SkullPicture12);
 										}
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.00) {
-											SkullTimer.setImage(SkullPicture00);
-											
-										} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.05) {
-											SkullTimer.setImage(SkullPicture01);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.10) {
-											SkullTimer.setImage(SkullPicture02);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.15) {
-											SkullTimer.setImage(SkullPicture03);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.20) {
-											SkullTimer.setImage(SkullPicture04);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.25) {
-											SkullTimer.setImage(SkullPicture05);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.30) {
-											SkullTimer.setImage(SkullPicture06);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.35) {
-											SkullTimer.setImage(SkullPicture07);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.40) {
-											SkullTimer.setImage(SkullPicture08);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.45) {
-											SkullTimer.setImage(SkullPicture09);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.50) {
-											SkullTimer.setImage(SkullPicture10);
-											} 	
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.55) {
-											SkullTimer.setImage(SkullPicture11);
-											} 
-										else if (db[turnOfPlayer].sw.getTime() >= aveTime*2.60) {
-											db[turnOfPlayer].quit=true;
-											} 
+										
+										
+										
 										
 										else {screenName.setFill(Color.BLUE);
 										screenTime.setFill(Color.BLUE);
@@ -627,7 +634,7 @@ public class TTTmain extends Application {
 					 
 					VBox timeturn = new VBox();
 					timeturn.getChildren().addAll(screenName, screenTime);
-					gameFlow.getChildren().addAll(timeturn);
+					gameFlow.getChildren().addAll(timeturn, SkullTimer);
 					
 					db[turnOfPlayer].sw.start();
 					db[turnOfPlayer].active = true;
