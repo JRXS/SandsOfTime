@@ -17,9 +17,7 @@ import java.util.*;
 
 import srcEntry.Player;
 import srcEntry.EntryGUI;
-//import srcEntry.EntryNAMES;
-//import srcGUI.SwGUI; 
-//import srcGUI.SwTIME;
+
 
 public class TTTmain extends Application {
 
@@ -318,7 +316,7 @@ public class TTTmain extends Application {
 	//				borderE.setRight(fillinNames.enterName());
 				}  
 			}); 
-		 
+		 //
 	/*	 Button arraystarter = new Button("Press to make array");
 		 arraystarter.setPrefSize(200, 30);
 		 
